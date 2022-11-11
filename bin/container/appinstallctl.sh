@@ -8,7 +8,7 @@ WWW_UID=''
 WWW_GID=''
 WP_CONST_CONF=''
 PUB_IP=$(curl -s http://checkip.amazonaws.com)
-DB_HOST='mysql'
+MYSQL_HOST='mysql'
 EPACE='        '
 
 echow(){
@@ -91,7 +91,7 @@ check_sql_native(){
 }
 
 app_drupal_dl(){
-    echoG 'Download Drupal CMS'
+    echo 'Download Drupal CMS'
     if [ ! -d "${VH_DOC_ROOT}/sites" ]; then
         composer create-project --no-interaction drupal/recommended-project ${VH_DOC_ROOT}/ >/dev/null 2>&1
         cd ${VH_DOC_ROOT}/ && composer require drush/drush -q
@@ -102,11 +102,11 @@ app_drupal_dl(){
 }
 
 install_drupal(){
-	echoG 'Install Drupal'
+	echo 'Install Drupal'
 	export COMPOSER_ALLOW_SUPERUSER=1
     cd ${VH_DOC_ROOT}
 
-	drush -y "site-install standard" \
+	drush -y site-install standard \
 	    "--db-url=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}/${MYSQL_DATABASE}" \
 		"--account-name=${DRUPAL_USERNAME}" \
 		"--account-pass=${DRUPAL_PASSWORD}" \
@@ -116,7 +116,7 @@ install_drupal(){
 }
 
 install_lscache(){
-	echoG 'Install LSCache'
+	echo 'Install LSCache'
 	drush -y config-set system.performance css.preprocess 0 -q
 	drush -y config-set system.performance js.preprocess 0 -q
 	drush cache-rebuild -q

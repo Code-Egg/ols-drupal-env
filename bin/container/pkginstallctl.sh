@@ -136,6 +136,9 @@ case ${1} in
             composer)
                 install_composer
             ;;
+            drush)
+                install_drush
+            ;;    
             systemd)
                 install_systemd
             ;;    

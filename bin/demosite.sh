@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 source .env
-APP_NAME='wordpress'
+APP_NAME='drupal'
 CONT_NAME='litespeed'
 DOC_FD=''
 
