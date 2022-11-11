@@ -36,6 +36,7 @@ install_packages(){
         docker compose exec -T litespeed /bin/bash -c "pkginstallctl.sh --package git"
     elif [ "${1}" = 'drupal' ]; then
         docker compose exec -T litespeed /bin/bash -c "pkginstallctl.sh --package composer"
+        docker compose exec -T litespeed /bin/bash -c "pkginstallctl.sh --package unzip"
 		docker compose exec -T litespeed /bin/bash -c "pkginstallctl.sh --package drush"
     fi    
 }

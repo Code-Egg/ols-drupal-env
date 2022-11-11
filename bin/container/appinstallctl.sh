@@ -101,6 +101,19 @@ app_drupal_dl(){
     fi	
 }
 
+cache_plugin_dl(){
+    echo 'Download Cache Plugin'
+    if [ -d "${VH_DOC_ROOT}/web/modules" ] && [ ! -d "${VH_DOC_ROOT}/web/modules/lscache-drupal-master" ]; then 
+        cd ${VH_DOC_ROOT}/web/modules
+        wget https://github.com/litespeedtech/lscache-drupal/archive/master.zip -O master.zip -q 
+        unzip -qq master.zip
+        rm -f master.zip
+    else
+        echo 'Skip cache plugin download!'    
+    fi
+}
+
+
 install_drupal(){
 	echo 'Install Drupal'
 	export COMPOSER_ALLOW_SUPERUSER=1
@@ -139,6 +152,7 @@ main(){
 	if [ "${APP_NAME}" = 'drupal' ] || [ "${APP_NAME}" = 'dp' ]; then
 		check_sql_native
 		app_drupal_dl
+		cache_plugin_dl
 		install_drupal
 		install_lscache
 		change_owner
